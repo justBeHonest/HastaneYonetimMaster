@@ -1,0 +1,114 @@
+﻿@model HastaneYonetim.Core.ViewModel.RandevuFormuViewModel
+@{
+    ViewBag.Title = "Randevu Düzenle";
+}
+<div class="page-title">
+    <div class="title_left">
+        <h3>Randevu düzenle</h3>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-6 col-xs-12">
+
+        <div class="x_panel">
+            <div class="x_content form-horizontal">
+                @using (Html.BeginForm())
+                {
+
+                    @Html.ValidationSummary(true)
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.Id)
+                    @Html.HiddenFor(m => m.Hasta)
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Doktor</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @Html.DropDownListFor(m => m.Doktor, new SelectList(Model.Doktorlar, "Id", "Ad"), "Birini seçin", new { @class = "form-control col-md-7 col-xs-12" })
+                            @Html.ValidationMessageFor(m => m.Doktor)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Tarih</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                            @Html.TextBoxFor(m => m.Tarih, new { @class = "form-control col-md-7 col-xs-12 date" })
+                            @Html.ValidationMessageFor(m => m.Tarih)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Saat</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                            @Html.TextBoxFor(m => m.Saat, new { @class = "form-control col-md-7 col-xs-12 time" })
+                            @Html.ValidationMessageFor(m => m.Saat)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Detay</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                            @Html.TextAreaFor(m => m.Detay, new { @class = "form-control col-md-7 col-xs-12 " })
+                            @Html.ValidationMessageFor(m => m.Detay)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3 col-xs-12">Durum</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="radio">
+                                <label> @Html.RadioButtonFor(model => model.Durum, "true", new { @class = "flat" }) Onaylandı </label>
+                                <label> @Html.RadioButtonFor(model => model.Durum, "false", new { @class = "flat" }) Bekliyor </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-4">
+                                <a href="@Url.Action("Index", "Randevular")" class="btn btn-default">Geri</a>
+                                <button type="submit" class="btn btn-success">Kaydet</button>
+                            </div>
+                        </div>
+
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $('.date').datepicker({
+            minDate: 0,
+            format: "dd/mm/yyyy",
+            todayHighlight: true,
+            clearBtn: true,
+            orientation: "bottom left",
+            autoclose: true
+        });
+        $('.time').clockpicker({
+            placement: 'bottom',
+            align: 'left',
+            donetext: 'Done',
+            twentyfourhour: true
+        });
+
+
+        jQuery.validator.methods.date = function (value, element) {
+            var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+            if (isChrome) {
+                var d = new Date();
+                return this.optional(element) || !/Invalid|NaN/.test(new Date(d.toLocaleDateString(value)));
+            } else {
+                return this.optional(element) || !/Invalid|NaN/.test(new Date(value));
+            }
+        };
+
+
+    </script>
+
+}
+

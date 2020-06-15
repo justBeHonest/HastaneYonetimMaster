@@ -1,0 +1,35 @@
+﻿@model HastaneYonetim.Core.ViewModel.HariciGirisOnaylamaViewModel
+@{
+    ViewBag.Title = "Kayıt";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.LoginProvider sağlayıcı hesabınızı ilişkilendirin.</h3>
+
+@using (Html.BeginForm("HariciGirisOnaylama", "Hesap", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <h4>İlişkilendirme Formu</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<p class="text-info">
+    <strong>@ViewBag.LoginProvider</strong>ile başarılı bir şekilde kimlik doğrulaması yaptınız ve bu site için 
+    bir kullanıcı adı girin ve giriş yapmayı tamamlamak için Kaydet düğmesine tıklayın.
+</p>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Eposta, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Eposta, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Eposta, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Kayıt" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

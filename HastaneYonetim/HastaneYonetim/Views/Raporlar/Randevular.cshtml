@@ -1,0 +1,70 @@
+﻿@model IEnumerable<HastaneYonetim.Core.Models.Randevu>
+@{
+    ViewBag.Title = "Randevular";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #renderTable {
+        background-color: white;
+    }
+</style>
+<span class="section">Randevular</span>
+<div class="row">
+   
+    <div class="well" style="overflow: auto">
+        <form id="form1">
+            <div class="col-sm-2">
+            </div>
+
+            <div class="col-sm-3">
+                <label>Seçim</label><br />
+                <select name="option" class="form-control">
+                    <option value="">--Birini seç--</option>
+                    <option value="ThisMonth">Bu ay </option>
+                    <option value="Pending">Bekliyor </option>
+                    <option value="Approved">Onaylandı </option>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <label>Doktor </label>
+                <input type="text" name="name" class="form-control" placeholder="Doktor ismini giriniz" />
+            </div>
+            <div class="col-sm-3">
+                <label></label><br />
+                <input type="button" class="btn btn-primary" value="Gönder" id="submit" />
+                <input type="button" class="btn btn-default" id="showAll" value="Hepsini Göster" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div id="renderTable" class="x_content">
+                @Html.Partial("_Randevular")
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+       
+
+        $(document).ready(function () {
+            $('#submit').on('click', function () {
+                $('#renderTable').load("TestRandevu", $('#form1').serialize());
+            });
+        });
+
+
+        $('#showAll').on('click', function () {
+            location.reload(true);
+        });
+    </script>
+
+}
+

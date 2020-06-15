@@ -1,0 +1,84 @@
+﻿@model IEnumerable<HastaneYonetim.Core.Models.Randevu>
+@{
+    ViewBag.Title = "Anasayfa";
+}
+
+
+<div class="row top_tiles">
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <div class="icon"><i class="fa fa-caret-square-o-right"></i></div>
+            <div class="count patients"></div>
+            <h3>Toplam Hasta </h3>
+            <p class="count_bottom"><i class="green todayspatients"> </i>bugün eklendi</p>
+        </div>
+    </div>
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <div class="icon"><i class="fa fa-comments-o"></i></div>
+            <div class="count appointments"></div>
+            <h3>Toplam Randevu </h3>
+            <p class="count_bottom"><i class="green todaysappointments"> </i>  bugün için</p>
+        </div>
+    </div>
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <div class="icon"><i class="fa fa-sort-amount-desc"></i></div>
+            <div class="count doctors"></div>
+            <h3>Toplam Doktor </h3>
+            <p class="count_bottom"><i class="green availabledoctors"> </i> doktor müsait</p>
+        </div>
+    </div>
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <div class="icon"><i class="fa fa-check-square-o"></i></div>
+            <div class="count users"></div>
+            <h3>Toplam Kullanıcı</h3>
+            <p class="count_bottom"><i class="green activeaccounts"> </i> aktif hesap</p>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+            
+            $.get('../../../Home/ToplamHasta', null, function (data) {
+                $('.patients').append(data);
+            }, 'json');
+
+           
+            $.get('../../../Home/ToplamRandevu', null, function (data) {
+                $('.appointments').append(data);
+            }, 'json');
+            
+            $.get('../../../Home/ToplamDoktor', null, function (data) {
+                $('.doctors').append(data);
+            }, 'json');
+           
+            $.get('../../../Home/ToplamKullanici', null, function (data) {
+                $('.users').append(data);
+            }, 'json');
+            
+            $.get('../../../Home/BugunkuHastalar', null, function (data) {
+                $('.todayspatients').append(data);
+            }, 'json');
+            
+            $.get('../../../Home/BugunkuRandevular', null, function (data) {
+                $('.todaysappointments').append(data);
+            }, 'json');
+          
+            $.get('../../../Home/MusaitDoktorlar', null, function (data) {
+                $('.availabledoctors').append(data);
+            }, 'json');
+        
+            $.get('../../../Home/AktifHesaplar', null, function (data) {
+                $('.activeaccounts').append(data);
+            }, 'json');
+            
+
+        });
+    </script>
+}

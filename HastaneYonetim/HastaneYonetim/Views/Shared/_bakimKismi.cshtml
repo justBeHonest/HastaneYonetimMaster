@@ -1,0 +1,58 @@
+﻿@model IEnumerable<HastaneYonetim.Core.Models.Bakim>
+@{
+    ViewBag.Title = "Hastalar";
+    Layout = null;
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_content">
+                <table class="data table table-striped no-margin dataTable">
+                    <thead>
+                        <tr>
+                            <th>Klinik Notları</th>
+                            <th>Teşhis</th>
+                            <th>İkinci tanı</th>
+                            <th>Üçüncü tanı</th>
+                            <th>Terapi</th>
+                            <th>Tarih</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.KlinikBulgular</td>
+                                <td>@item.Teshis</td>
+                                <td>@item.Teshis2</td>
+                                <td>@item.Teshis3</td>
+                                <td>@item.Terapi</td>
+                                <td>@item.Tarih.ToString("MMM"), @item.Tarih.ToString("d ")-@item.Tarih.ToString("yyyy")</td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.dataTable').DataTable({
+            "scrollY": "300px",
+            "scrollCollapse": true,
+            "paging": false,
+            "filter": false,
+            "info": false,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+</script>

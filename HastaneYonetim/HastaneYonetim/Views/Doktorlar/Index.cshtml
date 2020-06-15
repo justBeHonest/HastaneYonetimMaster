@@ -1,0 +1,75 @@
+﻿@model IEnumerable<HastaneYonetim.Core.Models.Doktor>
+@{
+    ViewBag.Title = "Index";
+}
+<div class="page-title">
+    <div class="title_left">
+        <h3>Doktorlar</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+        <div class="x_content">
+            <table id="doctors" class="data table table-striped no-margin">
+                <thead>
+                    <tr>
+                        <th>İsim </th>
+                        <th>Telefon </th>
+                        <th>Uzmanlık </th>
+                        <th>Durum</th>
+                        <th>Hesap Durumu</th>
+                        <th><a href="@Url.Action("DoktorKayit","Hesap")" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i>Ekle</a></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Ad </td>
+                        <td>@item.Telefon</td>
+                        <td>@item.Uzmanlik.Ad</td>
+                        <td>@{
+                                if (item.musaitMi == true)
+                                 {
+                                     <a href="#" style="padding: 3px 10px 3px 10px; background-color:green " class="badge" readonly>Mevcut</a>
+                                 }
+                                 else
+                                 {
+                                     <a href="#" style="padding: 3px 10px 3px 10px; background-color:red " class="badge" readonly>Kapalı</a>
+                                 }
+                            }</td>
+                        <td>
+                            @{
+                               
+                                if ((bool) item.Hekim.aktifMi)
+                                {
+                                    <a href="#" style="padding: 3px 10px 3px 10px; background-color:green " class="badge" readonly>Aktif</a>
+                                }
+                                else
+                                {
+                                    <a href="#" style="padding: 3px 10px 3px 10px; background-color:red " class="badge" readonly>Kilitli</a>
+                                }
+                            }
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Detaylar","Doktorlar", new { id = item.Id})" class="btn btn-default btn-xs"><i class="fa fa-folder"></i>Detaylar</a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+  </div>
+
+
+        </div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#doctors").DataTable();
+        });
+    </script>
+    }

@@ -1,0 +1,111 @@
+﻿@model HastaneYonetim.Core.ViewModel.HastaFormuViewModel
+@{ ViewBag.Title = Model.Baslik; }
+<div class="row ">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+
+        <div class="x_panel">
+            <div class="x_content">
+                @using (Html.BeginForm(Model.Action, "Hastalar", FormMethod.Post, new { @class = "form-horizontal form-label-left", autocomplete = "off" }))
+                {
+
+
+    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.Id)
+
+                                    <span class="section">Hasta Ekle</span>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">İsim <span class="required">*</span></label>
+                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            @Html.TextBoxFor(m => m.Ad, new { @class = "form-control col-md-7 col-xs-12", autofocus = "true" })
+                                                            @Html.ValidationMessageFor(m => m.Ad)
+                                                        </div>
+                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Cinsiyet <span class="required">*</span></label>
+                                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                            @Html.DropDownListFor(m => m.Cinsiyet, Model.CinsiyetlerListesi, new { @class = "form-control col-md-7 col-xs-12" })
+                                                                            @Html.ValidationMessageFor(m => m.Cinsiyet)
+                                                                        </div>
+                                                                    </div>
+
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Doğum Tarihi <span class="required">*</span></label>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                                            @Html.TextBoxFor(m => m.DogumTarihi, new { @class = "form-control col-md-7 col-xs-12 datepicker " })
+                                                                                            @Html.ValidationMessageFor(m => m.DogumTarihi)
+                                                                                        </div>
+                                                                                    </div>
+                                                                                                    <div class="form-group">
+                                                                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Boy</label>
+                                                                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                                                            @Html.TextBoxFor(m => m.Boy, new { @class = "form-control col-md-7 col-xs-12" })
+                                                                                                            @Html.ValidationMessageFor(m => m.Boy)
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                                    <div class="form-group">
+                                                                                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Kilo</label>
+                                                                                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                                                                            @Html.TextBoxFor(m => m.Kilo, new { @class = "form-control col-md-7 col-xs-12" })
+                                                                                                                            @Html.ValidationMessageFor(m => m.Kilo)
+                                                                                                                        </div>
+                                                                                                                    </div>
+
+                                                                                                                                    <div class=" form-group">
+                                                                                                                                        <label class="control-label col-sm-3 col-xs-12">Telefon <span class="required">*</span></label>
+                                                                                                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                                                                                                                            @Html.TextBoxFor(m => m.TelefonNumarasi, new { @class = "form-control col-md-7 col-xs-12" })
+                                                                                                                                            @Html.ValidationMessageFor(m => m.TelefonNumarasi)
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+
+
+                                                                                                                                                    <div class="form-group">
+                                                                                                                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Adres <span class="required">*</span></label>
+                                                                                                                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                                                                                                            @Html.TextBoxFor(m => m.Adres, new { @class = "form-control col-md-7 col-xs-12" })
+                                                                                                                                                            @Html.ValidationMessageFor(m => m.Adres)
+                                                                                                                                                        </div>
+                                                                                                                                                    </div>
+
+                                                                                                                                                                    <div class=" form-group">
+                                                                                                                                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Şehir <span class="required">*</span></label>
+                                                                                                                                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                                                                                                                            @Html.DropDownListFor(m => m.Sehir, new SelectList(Model.Sehirler, "Id", "Ad"), "Select", new { @class = "form-control col-md-7 col-xs-12" })
+                                                                                                                                                                            @Html.ValidationMessageFor(m => m.Sehir)
+                                                                                                                                                                        </div>
+                                                                                                                                                                    </div>
+                                                                                                                                                                                    <div class="ln_solid"></div>
+                                                                                                                                                                                                    <div class="form-group">
+                                                                                                                                                                                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-4">
+                                                                                                                                                                                                            <button type="submit" class="btn btn-success">Kaydet</button>
+                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                    </div>}
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+
+            $('.datepicker').datepicker({
+                format: 'dd/mm/yyyy',
+                todayHighlight: true,
+                orientation: "top left",
+                autoclose: true
+            });
+
+        });
+    </script>
+
+}
+
+
+
+
+

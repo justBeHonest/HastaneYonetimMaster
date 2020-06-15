@@ -1,0 +1,72 @@
+﻿@model HastaneYonetim.Core.ViewModel.DoktorDetayViewModel
+@{ ViewBag.Title = "Hastalar";
+                Layout = "~/Views/Shared/_LayoutOut.cshtml"; }
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title">Hastalar</h4>
+        </div>
+
+        <div class="x_content modal-body">
+            <table id="patients" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Hasta Numarasİ</th>
+                        <th>Isim</th>
+                        <th>Telefon</th>
+                        <th>Tarih</th>
+                        <th>Saat</th>
+                        <th>Detaylar</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Randevular)
+                    {
+        <tr>
+            <td>@item.Hasta.HastaNumarasi</td>
+            <td>@item.Hasta.Ad</td>
+            <td>@item.Hasta.Telefon</td>
+            <td>@item.BaslangicTarihSure.ToString("MMM")-@item.BaslangicTarihSure.ToString("d ")-@item.BaslangicTarihSure.ToString("yyyy")</td>
+            <td>@item.BaslangicTarihSure.ToString("HH:mm")</td>
+            <td>@item.Detay</td>
+           
+        </tr>}
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-xs-12">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#patients").DataTable({
+                "scrollY": "300px",
+                "scrollCollapse": true,
+                "paging": false,
+                "filter": false,
+                "info": false
+
+            });
+        });
+           
+    </script>
+}
+
+
+
+

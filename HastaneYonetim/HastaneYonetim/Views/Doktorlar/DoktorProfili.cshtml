@@ -1,0 +1,116 @@
+﻿@model HastaneYonetim.Core.ViewModel.DoktorDetayViewModel
+@{
+    ViewBag.Title = "Profil";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Profil</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a href="@Url.Action("Duzenle","Doktorlar", new{id =Model.Doktor.Id})" class="btn-link"><i class="fa fa-edit m-right-xs"></i>Düzenle</a>
+
+                    </li>
+                </ul>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+                    <div class="profile_img">
+                        <div id="crop-avatar">
+                           
+                            <img class="img-responsive avatar-view" src="~/Content/images/user.png" alt="Avatar" title="Change the avatar">
+                        </div>
+                    </div>
+                    <h3>@Model.Doktor.Ad</h3>
+                    <ul class="list-unstyled user_data">
+                        <li>
+                            <i class="fa fa-briefcase user-profile-icon"></i> @Model.Doktor.Uzmanlik.Ad
+                        </li>
+                        <li>
+                            <i class="fa fa-map-marker user-profile-icon"></i> @Model.Doktor.Adres
+                        </li>
+                        <li>
+                            <i class="fa fa-phone"></i> @Model.Doktor.Telefon
+                        </li>
+                        <li><i class="fa fa-inbox"></i>@Model.Doktor.Hekim.Email</li>
+
+                    </ul>
+                 
+                    @if (Model.Doktor.musaitMi == true)
+                    {
+                        <a href="#" style="padding: 3px 10px 3px 10px; background-color:green " class="badge" readonly>Mevcut</a>
+                    }
+                    else
+                    {
+                        <a href="#" style="padding: 3px 10px 3px 10px; background-color:red " class="badge" readonly>Kapalı</a>
+                    }
+                    
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                    <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Randevular</a>
+                            </li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                              
+                                <table id="patients" class="data table table-striped no-margin">
+                                    <thead>
+                                        <tr>
+                                            <th>Hasta Numarası</th>
+                                            <th>İsim</th>
+                                            <th>Telefon</th>
+                                            <th>Tarih</th>
+                                            <th>Süre</th>
+                                            <th>Detaylar</th>
+                                            <th></th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Randevular)
+                                        {
+                                            <tr>
+                                                <td>@item.Hasta.HastaNumarasi</td>
+                                                <td>@item.Hasta.Ad</td>
+                                                <td>@item.Hasta.Telefon</td>
+                                                <td>@item.BaslangicTarihSure.ToString("MMM")-@item.BaslangicTarihSure.ToString("d ")-@item.BaslangicTarihSure.ToString("yyyy")</td>
+                                                <td>@item.BaslangicTarihSure.ToString("HH:mm")</td>
+                                                <td>@item.Detay</td>
+                                                <td><a href="@Url.Action("Detaylar","Hastalar", new { id = item.Hasta.Id})" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i>Görünüm</a></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function() {
+            $("#patients").DataTable({
+                "scrollY": "300px",
+                "scrollCollapse": true,
+                "paging": false,
+                "filter": false,
+                "info": false
+
+            });
+        });
+    </script>
+}

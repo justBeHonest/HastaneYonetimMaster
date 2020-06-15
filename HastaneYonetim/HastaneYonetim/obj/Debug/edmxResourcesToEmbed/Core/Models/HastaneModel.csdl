@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HastaneDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Ad" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="aktifMi" Type="Boolean" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="Doktors" Relationship="Self.FK_dbo_Doktors_dbo_AspNetUsers_HekimId" FromRole="AspNetUsers" ToRole="Doktors" />
+    <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+  </EntityType>
+  <EntityType Name="Bakim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KlinikBulgular" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Teshis" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Teshis2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Teshis3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Terapi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="HastaId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Hasta" Relationship="Self.FK_dbo_Bakims_dbo_Hastas_HastaId" FromRole="Bakims" ToRole="Hastas" />
+  </EntityType>
+  <EntityType Name="Doktor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ad" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Telefon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="musaitMi" Type="Boolean" Nullable="false" />
+    <Property Name="Adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UzmanlikId" Type="Int32" Nullable="false" />
+    <Property Name="HekimId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_Doktors_dbo_AspNetUsers_HekimId" FromRole="Doktors" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Uzmanlik" Relationship="Self.FK_dbo_Doktors_dbo_Uzmanliks_UzmanlikId" FromRole="Doktors" ToRole="Uzmanliks" />
+    <NavigationProperty Name="Randevus" Relationship="Self.FK_dbo_Randevus_dbo_Doktors_DoktorId" FromRole="Doktors" ToRole="Randevus" />
+  </EntityType>
+  <EntityType Name="Hasta">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HastaNumarasi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Ad" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Cinsiyet" Type="Int32" Nullable="false" />
+    <Property Name="DogumTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Telefon" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Adres" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SehirId" Type="Byte" Nullable="false" />
+    <Property Name="TarihSure" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Boy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Kilo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Bakims" Relationship="Self.FK_dbo_Bakims_dbo_Hastas_HastaId" FromRole="Hastas" ToRole="Bakims" />
+    <NavigationProperty Name="Sehir" Relationship="Self.FK_dbo_Hastas_dbo_Sehirs_SehirId" FromRole="Hastas" ToRole="Sehirs" />
+    <NavigationProperty Name="Randevus" Relationship="Self.FK_dbo_Randevus_dbo_Hastas_HastaId" FromRole="Hastas" ToRole="Randevus" />
+  </EntityType>
+  <EntityType Name="Randevu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BaslangicTarihSure" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Detay" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Durum" Type="Boolean" Nullable="false" />
+    <Property Name="HastaId" Type="Int32" Nullable="false" />
+    <Property Name="DoktorId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Doktor" Relationship="Self.FK_dbo_Randevus_dbo_Doktors_DoktorId" FromRole="Randevus" ToRole="Doktors" />
+    <NavigationProperty Name="Hasta" Relationship="Self.FK_dbo_Randevus_dbo_Hastas_HastaId" FromRole="Randevus" ToRole="Hastas" />
+  </EntityType>
+  <EntityType Name="Sehir">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Byte" Nullable="false" />
+    <Property Name="Ad" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Hastas" Relationship="Self.FK_dbo_Hastas_dbo_Sehirs_SehirId" FromRole="Sehirs" ToRole="Hastas" />
+  </EntityType>
+  <EntityType Name="Uzmanlik">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ad" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Doktors" Relationship="Self.FK_dbo_Doktors_dbo_Uzmanliks_UzmanlikId" FromRole="Uzmanliks" ToRole="Doktors" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Doktors_dbo_AspNetUsers_HekimId">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Doktors" Type="Self.Doktor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Doktors">
+        <PropertyRef Name="HekimId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Bakims_dbo_Hastas_HastaId">
+    <End Role="Hastas" Type="Self.Hasta" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Bakims" Type="Self.Bakim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hastas">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bakims">
+        <PropertyRef Name="HastaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Doktors_dbo_Uzmanliks_UzmanlikId">
+    <End Role="Uzmanliks" Type="Self.Uzmanlik" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Doktors" Type="Self.Doktor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uzmanliks">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Doktors">
+        <PropertyRef Name="UzmanlikId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Randevus_dbo_Doktors_DoktorId">
+    <End Role="Doktors" Type="Self.Doktor" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Randevus" Type="Self.Randevu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doktors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Randevus">
+        <PropertyRef Name="DoktorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Hastas_dbo_Sehirs_SehirId">
+    <End Role="Sehirs" Type="Self.Sehir" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Hastas" Type="Self.Hasta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sehirs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Hastas">
+        <PropertyRef Name="SehirId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Randevus_dbo_Hastas_HastaId">
+    <End Role="Hastas" Type="Self.Hasta" Multiplicity="1" />
+    <End Role="Randevus" Type="Self.Randevu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hastas">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Randevus">
+        <PropertyRef Name="HastaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="HastaneDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+    <EntitySet Name="Bakims" EntityType="Self.Bakim" />
+    <EntitySet Name="Doktors" EntityType="Self.Doktor" />
+    <EntitySet Name="Hastas" EntityType="Self.Hasta" />
+    <EntitySet Name="Randevus" EntityType="Self.Randevu" />
+    <EntitySet Name="Sehirs" EntityType="Self.Sehir" />
+    <EntitySet Name="Uzmanliks" EntityType="Self.Uzmanlik" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Doktors_dbo_AspNetUsers_HekimId" Association="Self.FK_dbo_Doktors_dbo_AspNetUsers_HekimId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Doktors" EntitySet="Doktors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Bakims_dbo_Hastas_HastaId" Association="Self.FK_dbo_Bakims_dbo_Hastas_HastaId">
+      <End Role="Hastas" EntitySet="Hastas" />
+      <End Role="Bakims" EntitySet="Bakims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Doktors_dbo_Uzmanliks_UzmanlikId" Association="Self.FK_dbo_Doktors_dbo_Uzmanliks_UzmanlikId">
+      <End Role="Uzmanliks" EntitySet="Uzmanliks" />
+      <End Role="Doktors" EntitySet="Doktors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Randevus_dbo_Doktors_DoktorId" Association="Self.FK_dbo_Randevus_dbo_Doktors_DoktorId">
+      <End Role="Doktors" EntitySet="Doktors" />
+      <End Role="Randevus" EntitySet="Randevus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Hastas_dbo_Sehirs_SehirId" Association="Self.FK_dbo_Hastas_dbo_Sehirs_SehirId">
+      <End Role="Sehirs" EntitySet="Sehirs" />
+      <End Role="Hastas" EntitySet="Hastas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Randevus_dbo_Hastas_HastaId" Association="Self.FK_dbo_Randevus_dbo_Hastas_HastaId">
+      <End Role="Hastas" EntitySet="Hastas" />
+      <End Role="Randevus" EntitySet="Randevus" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

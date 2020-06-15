@@ -1,0 +1,57 @@
+﻿@model HastaneYonetim.Core.ViewModel.GirisViewModel
+@{ Layout = "~/Views/Shared/_LayoutOut.cshtml";
+                ViewBag.Title = "Giris"; }
+    <div>
+
+        <div class="login_wrapper">
+            <section id="loginForm" class="login_content">
+                @using (Html.BeginForm("Giris", "Hesap", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "animate form login_form", role = "form" }))
+                {
+    @Html.AntiForgeryToken()
+                    <h1>Giriş Ekranı</h1>
+
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                    <div>
+
+                                                        @Html.TextBoxFor(m => m.Eposta, new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(m => m.Eposta, "", new { @class = "text-danger" })
+
+                                                    </div>
+
+                                                                    <div>
+                                                                        @Html.PasswordFor(m => m.Sifre, new { @class = "form-control" })
+                                                                        @Html.ValidationMessageFor(m => m.Sifre, "", new { @class = "text-danger" })
+                                                                    </div> 
+
+                                                                                    <div>
+                                                                                        <input type="submit" value="Log in" class="btn btn-default" />
+                                                                                        <div class="checkbox">
+                                                                                            @Html.CheckBoxFor(m => m.HatirlaBeni)
+                                                                                            @Html.LabelFor(m => m.HatirlaBeni)
+                                                                                        </div>
+                                                                                    </div>
+                                                                                                    <div class="clearfix"></div>
+                                                                                                                    <div class="separator">
+                                                                                                                        <p class="change_link">
+                                                                                                                            Site de yeni misin?
+                                                                                                                            <a href="~/Hesap/Kayit" class="to_register"> Hesap oluştur </a>
+                                                                                                                        </p>
+                                                                                                                        <div class="clearfix"></div>
+                                                                                                                        <br />
+                                                                                                                        <div>
+                                                                                                                            <h1><i class="fa fa-hospital-o"></i> Hastane Yönetim Sistemi</h1>
+
+                                                                                                                        </div>
+                                                                                                                    </div> }
+            </section>
+        </div>
+       
+    </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+

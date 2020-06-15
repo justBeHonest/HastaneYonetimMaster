@@ -1,0 +1,66 @@
+﻿@model IEnumerable<HastaneYonetim.Core.Models.Randevu>
+@{ Layout = null; }
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_content">
+                <table class=" data table table-striped no-margin dataTable">
+                    <thead>
+                        <tr>
+                            <th>Hasta Numarası</th>
+                            <th>Hasta Adı</th>
+                            <th>Telefon Numarası</th>
+                            <th>Tarih</th>
+                            <th>Saat</th>
+                            <th>Doktor</th>
+                            <th>Detay</th>
+                            <th>Durum</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+            <tr>
+                <td>@item.Hasta.HastaNumarasi</td>
+                <td>@item.Hasta.Ad</td>
+                <td>@item.Hasta.Telefon</td>
+                <td>@item.BaslangicTarihSure.ToString("MMM")-@item.BaslangicTarihSure.ToString("d ")-@item.BaslangicTarihSure.ToString("yyyy")</td>
+                <td>@item.BaslangicTarihSure.ToString("HH:mm")</td>
+                <td>@item.Doktor.Ad</td>
+                <td>@item.Detay</td>
+                <td>
+                    @{ if (item.Durum == true)
+                        {
+        <a href="#" style="padding: 3px 10px 3px 10px; background-color:green " class="badge" readonly>Onaylandı</a> }
+    else
+    {
+<a href="#" style="padding: 3px 10px 3px 10px; background-color:greenyellow" class="badge" readonly>Bekliyor</a> } }
+                </td>
+            </tr>
+}
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.dataTable').DataTable({
+            "scrollY": "300px",
+            "scrollCollapse": true,
+            "paging": false,
+            "filter": false,
+            "info": false,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+</script>

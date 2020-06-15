@@ -1,0 +1,77 @@
+﻿ @model HastaneYonetim.Core.ViewModel.BakimFormuViewModel
+@{
+    ViewBag.Title = Model.Baslik;
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h3>@Model.Baslik </h3>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content">
+                <div class="row" id="patientDetail">
+                   
+                    @using (Html.BeginForm("Olustur", "Bakimlar", FormMethod.Post, new { @class = "form-horizontal form-label-left", autocomplete = "off" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.Hasta)
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-3 col-xs-12">Klinik Notlar</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextAreaFor(m => m.KlinikBulgular, new { @class = "form-control col-md-7 col-xs-12", @rows=8 })
+                                @Html.ValidationMessageFor(m => m.KlinikBulgular)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-3 col-xs-12">Teşhis</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextAreaFor(m => m.Teshis, new { @class = "form-control col-md-7 col-xs-12" })
+                                @Html.ValidationMessageFor(m => m.Teshis)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3 col-xs-12">İkinci tanı</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextAreaFor(m => m.Teshis2, new { @class = "form-control col-md-7 col-xs-12" })
+                                @Html.ValidationMessageFor(m => m.Teshis2)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-3 col-xs-12">Üçüncü tanı</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextAreaFor(m => m.Teshis3, new { @class = "form-control col-md-7 col-xs-12" })
+                                @Html.ValidationMessageFor(m => m.Teshis3)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-3 col-xs-12">Terapi</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextAreaFor(m => m.Terapi, new { @class = "form-control col-md-7 col-xs-12" })
+                                @Html.ValidationMessageFor(m => m.Terapi)
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
+                                <button type="submit" class="btn btn-success">Kaydet</button>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+                </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

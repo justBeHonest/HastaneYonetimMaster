@@ -1,0 +1,67 @@
+﻿@model IEnumerable<HastaneYonetim.Core.Models.Randevu>
+@{
+    ViewBag.Title = "Randevular";
+}
+
+<div class="col-md-12">
+    <div class="x_panel">
+        <div class="x_title">
+            <h3>Randevular </h3>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="x_content">
+            <table id="appointments" class=" data table table-striped no-margin">
+                <thead>
+                    <tr>
+                        <th>Hasta Numarası</th>
+                        <th>Hasta Adı</th>
+                        <th>Telefon</th>
+                        <th>Tarih</th>
+                        <th>Zaman</th>
+                        <th>Doktor</th>
+                        <th>Detay</th>
+                        <th>Durum</th>
+                        <th></th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Hasta.HastaNumarasi</td>
+                            <td>@item.Hasta.Ad</td>
+                            <td>@item.Hasta.Telefon</td>
+                            <td>@item.BaslangicTarihSure.ToString("MMM")-@item.BaslangicTarihSure.ToString("d ")-@item.BaslangicTarihSure.ToString("yyyy")</td>
+                            <td>@item.BaslangicTarihSure.ToString("HH:mm")</td>
+                            <td>@item.Doktor.Ad</td>
+                            <td>@item.Detay</td>
+                            <td>@{
+                                    if(item.Durum == true)
+                                    {
+                                        <a href="#" style="padding: 3px 10px 3px 10px; background-color:green " class="badge" readonly>Onaylandı</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" style="padding: 3px 10px 3px 10px; background-color:greenyellow" class="badge" readonly>Bekliyor</a>
+                                    }
+                                }</td>
+                            <td><a href="@Url.Action("Duzenle","Randevular", new { id = item.Id})" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i>Düzenle</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function() {
+            $('#appointments').DataTable();
+        });
+    </script>
+}

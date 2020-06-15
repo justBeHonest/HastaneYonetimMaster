@@ -1,0 +1,70 @@
+﻿@model HastaneYonetim.Core.ViewModel.GirisleriYonetViewModel
+@using Microsoft.Owin.Security
+@{
+    ViewBag.Title = "Harici Girisleri Yönet";
+}
+
+<h2>Harici Girişleri Yönet.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+@{
+    var girisSaglayicilari = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+    if (girisSaglayicilari.Count() == 0) {
+        <div>
+            <p>
+                Yapılandırılmış harici kimlik doğrulama servisi yok. bu ASP.NET uygulamasının harici hizmetler yoluyla oturum açmayı destekleyecek şekilde ayarlamak için <a href="http://go.microsoft.com/fwlink/?LinkId=313242">Bu makaleye </a>
+                Gözatmanız tavsiye edilir.
+            </p>
+        </div>
+    }
+    else
+    {
+        if (Model.SimdikiGirisler.Count > 0)
+        {
+            <h4>Kayıtlı girişler</h4>
+            <table class="table">
+                <tbody>
+                    @foreach (var hesap in Model.SimdikiGirisler)
+                    {
+                        <tr>
+                            <td>@hesap.LoginProvider</td>
+                            <td>
+                                @if (ViewBag.ShowRemoveButton)
+                                {
+                                    using (Html.BeginForm("GirisKaldir", "Yonet"))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <div>
+                                            @Html.Hidden("loginProvider", hesap.LoginProvider)
+                                            @Html.Hidden("providerKey", hesap.ProviderKey)
+                                            <input type="submit" class="btn btn-default" value="Sil" title="@hesap.LoginProvider hesabınızdan kaldırın" />
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    @: &nbsp;
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        if (Model.DigerGirisler.Count > 0)
+        {
+            using (Html.BeginForm("GirisLinki", "Yonet"))
+            {
+                @Html.AntiForgeryToken()
+                <div id="socialLoginList">
+                <p>
+                    @foreach (AuthenticationDescription p in Model.DigerGirisler)
+                    {
+                        <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+                    }
+                </p>
+                </div>
+            }
+        }
+    }
+}

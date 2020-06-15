@@ -1,0 +1,57 @@
+﻿@model IEnumerable<HastaneYonetim.Core.ViewModel.KullaniciViewModel>
+
+@{ ViewBag.Title = "Kullanıcıları Yönet"; }
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Kullanıcıları Yönet </h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table id="users" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th> <label>Eposta</label> </th>
+                            <th><label>Rol</label></th>
+                            <th><label>Hesap Durumu</label></th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model)
+                    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Eposta)
+            </td>
+            <td>@item.Rol</td>
+            <td>
+                @{ 
+                                    if ((bool)item.aktifMi)
+                                    {
+                    <a href="#" style="padding: 3px 10px 3px 10px; background-color:green " class="badge" readonly>Aktif</a> }
+                                    else
+                                    {
+                    <a href="#" style="padding: 3px 10px 3px 10px; background-color:red " class="badge" readonly>Kilitli</a> } }
+            </td>
+            <td>
+                <a href="@Url.Action("Duzenle","Hesap", new { id = item.Id})"><i class="fa fa-pencil-square"></i></a>
+            </td>
+
+
+        </tr>}
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            var table = $("#users").DataTable();
+        });
+    </script>
+}

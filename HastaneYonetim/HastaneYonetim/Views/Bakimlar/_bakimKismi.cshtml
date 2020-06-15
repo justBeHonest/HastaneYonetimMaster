@@ -1,0 +1,50 @@
+﻿@model IEnumerable<HastaneYonetim.Core.Models.Bakim>
+@{
+    Layout = null;
+}
+
+<div class="col-md-12">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="x_title">Bakım</h4>
+        </div>
+
+        <div class="modal-body">
+
+            <table class="data table table-striped no-margin dataTables">
+                <thead>
+                    <tr>
+                        <th>Klinik Notlar</th>
+                        <th>Teşhis</th>
+                        <th>İkinci Tanı</th>
+                        <th>Üçüncü Tanı</th>
+                        <th>Terapi</th>
+                        <th>Tarih</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.KlinikBulgular</td>
+                            <td>@item.Teshis</td>
+                            <td>@item.Teshis2</td>
+                            <td>@item.Teshis3</td>
+                            <td>@item.Terapi</td>
+                            <td>@item.Tarih.ToString("MMM"), @item.Tarih.ToString("d ")-@item.Tarih.ToString("yyyy")</td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+
+        </div>>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+        </div>
+
+    </div>
+</div>

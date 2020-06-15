@@ -1,0 +1,122 @@
+﻿@using HastaneYonetim.Core.Models
+@model HastaneYonetim.Core.ViewModel.HastaDetayViewModel
+@{
+    ViewBag.Title = "Detaylar";
+}
+
+<div id="MyModal" class="modal fade in">
+        <div class="modal-dialog "style="width: 900px;">
+            <div class="modal-content">
+                <div id="MyModalContent"></div>
+            </div>
+        </div>
+    </div>
+
+
+<div class="page-title">
+    <div class="title_left">
+        <h3>Detaylar</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            
+
+            <div class="x_content">
+                <div class="col-md-3 col-sm-3 col-xs-12 profile_left ">
+                    <div class="profile_img">
+                        <div id="crop-avatar">
+                          
+                            <img class="img-responsive avatar-view" src="~/Content/images/user.png">
+                        </div>
+                    </div>
+                    <h3>@Model.Hasta.Ad</h3>
+                    <ul class="list-unstyled user_data">
+                        <li> <i class="fa fa-user"><strong>Hasta Numarası:</strong> @Model.Hasta.HastaNumarasi</i></li>
+                        <li> <i class="fa fa-user"><strong>Cinsiyet:</strong> @Model.Hasta.Cinsiyet</i></li>
+                        <li> <i class="fa fa-user"><strong>Yaş:</strong> @Model.Hasta.Yas</i></li>
+                        <li> <i class="fa fa-user"><strong>Boy:</strong> @Model.Hasta.Boy</i></li>
+                        <li> <i class="fa fa-user"><strong>Kilo:</strong> @Model.Hasta.Kilo</i></li>
+                        <li>
+                            <i class="fa fa-map-marker user-profile-icon"></i><strong>Adres:</strong> @Model.Hasta.Adres, @Model.Hasta.Sehirler.Ad
+                        </li>
+
+                        <li>
+                            <i class="fa fa-phone"></i><strong>Telefon:</strong> @Model.Hasta.Telefon
+                        </li>
+                        <li class="m-top-xs">
+                            <i class="fa fa-clock-o"></i><strong>Tarih :</strong> @Model.Hasta.TarihSure.ToString("MMM"), @Model.Hasta.TarihSure.ToString("d ")- @Model.Hasta.TarihSure.ToString("yyyy")-@Model.Hasta.TarihSure.ToString("HH:mm")
+
+                        </li>
+                    </ul>
+                    <a href="@Url.Action("Duzenle", "Hastalar", new { id= Model.Hasta.Id})" class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Düzenle</a>
+
+                    <br/>
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                       <span class="section"> Randevu</span>
+                      <a id="patientID" data-appointment-id="@Model.Hasta.Id" href="#"> Hasta Randevu</a>  <span class="badge badge-error">@Model.RandevulariSay</span> @if (User.IsInRole(RolAdi.AdminRolAdi))
+                                                                                                                                                                                   {
+                                                                                                                                                                                       <a href="@Url.Action("Olustur", "Randevular", new {id = Model.Hasta.Id})"><i class="fa fa-plus"></i></a>
+                                                                                                                                                                                   }
+                    </div>          
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                       <span class="section">Bakım </span>
+                        <a id="attendanceID" data-attendance-id="@Model.Hasta.Id" href="#">Laboratuvar Bakım </a> <span class="badge badge-error">@Model.BakimSay</span> <a href="@Url.Action("Olustur", "Bakimlar", new { id=Model.Hasta.Id})"> <i class="fa fa-plus"></i></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function(){
+            $("#patientID").on("click", function () {
+                var link = $(this);
+                $.ajaxSetup({ cache: false });
+                var detailUrl = "/Randevular/Detaylar/" + link.attr("data-appointment-id");
+                $("#MyModalContent").load(detailUrl, function () {
+                    $("#MyModal").modal({
+                        keyboard: false
+                    }, 'show');
+
+                });
+                return false;
+            });
+            $("#attendanceID").on("click", function () {
+                var link = $(this);
+                $.ajaxSetup({ cache: false });
+                var detailUrl = "/Bakimlar/Detaylar/" + link.attr("data-attendance-id");
+                $("#MyModalContent").load(detailUrl, function () {
+                    $("#MyModal").modal({
+                        keyboard: false
+                    }, 'show');
+
+                });
+                return false;
+            });
+
+
+        });
+
+        $('.dataTables').DataTable({
+            "scrollY": "300px",
+            "scrollCollapse": true,
+            "paging": false,
+            "filter": false,
+            "info": false
+        });
+    </script>
+ 
+}
+
+
+
+
+
