@@ -1,5 +1,7 @@
-
-![Dashboard](https://github.com/justBeHonest/Hastane2-master/blob/master/Hastane2-master/HastaneYonetim/HastaneYonetim/Content/images/anasayfa.JPG)
+Grup 52 
+161816059 Muhsin Kılıç
+171816005 Ahmet Ali Aşık
+![Dashboard](https://github.com/justBeHonest/HastaneYonetimMaster/blob/master/HastaneYonetim/HastaneYonetim/Content/images/anasayfa.JPG)
 
 # Hastane Yönetim Sistemi
 
